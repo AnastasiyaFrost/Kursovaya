@@ -1,5 +1,6 @@
 package pro.sky.kursovaya.controllers;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pro.sky.kursovaya.Question;
@@ -14,6 +15,8 @@ public class ExamController {
     public ExamController(ExaminerServiceImpl examinerServiceImpl) {
         this.examinerServiceImpl = examinerServiceImpl;
     }
-
-    public Collection<Question> getQuestions(@RequestParam int amount) {}
+@GetMapping
+    public Collection<Question> getQuestions(@RequestParam int amount) {
+        return this.examinerServiceImpl.getQuestions(amount);
+    }
 }
