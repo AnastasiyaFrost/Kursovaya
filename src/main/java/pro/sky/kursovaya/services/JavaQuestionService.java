@@ -2,6 +2,8 @@ package pro.sky.kursovaya.services;
 
 import org.springframework.stereotype.Service;
 import pro.sky.kursovaya.Question;
+import pro.sky.kursovaya.exceptions.IncorrectQuestionException;
+import pro.sky.kursovaya.exceptions.QuestionIsNotFoundException;
 import pro.sky.kursovaya.interfaces.QuestionService;
 
 import java.util.Collection;
@@ -41,43 +43,25 @@ public class JavaQuestionService implements QuestionService {
                     "1922-1924 гг."),
             new Question("В какой период состоялась I-я пятилетка?", "1928-1932 гг."),
             new Question("В каком году был создана организация Варшавского договора?",
-                    "1955 г."),
-            new Question("Передача Крымского полуострова в состав Украинской ССР произошла:",
-                    "1954 г."),
-            new Question("Международные отношения зимой 1984 г. характеризуются как:",
-                    "Высшей степенью возможной эскалации конфликта"),
-            new Question("«Перестройка» проходила:", "1985-1991 гг."),
-            new Question("Укажите даты Первой Чеченской кампании:",
-                    "11 декабря 1994 г. – 31 августа 1996 г."),
-            new Question("Государство, состоящее из покоренных стран и народов:", "Империя"),
-            new Question("Кто из Великих киевских князей был первым христианином?", "Ольга"),
-            new Question("Первый сборник законов на славянской земле.",
-                    "«Русская правда» Ярослава Мудрого"),
-            new Question("Первая битва русичей с ордой Чингисхана.",
-                    "Битва на реке Калке в 1223г."),
-            new Question("Офицеры Российской империи, поднявшие " +
-                    "восстание против царского самодержавия в 1825 г.", "Декабристы"),
-            new Question("В каких регионах мира сложились первые государственные образования?",
-                    "В Междуречье и Египте")
+                    "1955 г.")
     ));
 
-
-
-    @Override
-    public Question add(String question, String answer) {
-        Question que1 = new Question(question, answer);
-        questions.add(que1);
-        return que1;
-    }
+public boolean checkInput(Question question) {
+    return !question.getQuestion().isBlank() && !question.getQuestion().isEmpty()
+            && !question.getAnswer().isBlank() && !question.getAnswer().isEmpty();
+}
 
     @Override
     public Question add(Question question) {
+        if(!checkInput(question)) {throw new IncorrectQuestionException();}
         questions.add(question);
         return question;
     }
 
     @Override
     public Question remove(Question question) {
+        if(!checkInput(question)) {throw new IncorrectQuestionException();}
+        if (!questions.contains(question)){throw new QuestionIsNotFoundException();}
         questions.remove(question);
         return question;
     }
@@ -89,6 +73,7 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question getRandomQuestion() {
+    if(questions.isEmpty()){throw new QuestionIsNotFoundException();}
         return questions.stream().skip(new Random().nextInt(questions.size())).findFirst().orElse(null);
     }
 }

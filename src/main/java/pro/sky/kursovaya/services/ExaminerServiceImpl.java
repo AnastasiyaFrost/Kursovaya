@@ -1,8 +1,7 @@
 package pro.sky.kursovaya.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.tags.form.SelectTag;
+import pro.sky.kursovaya.exceptions.AmountOverSizeQuestionsException;
 import pro.sky.kursovaya.interfaces.ExaminerService;
 import pro.sky.kursovaya.Question;
 import pro.sky.kursovaya.interfaces.QuestionService;
@@ -25,7 +24,8 @@ public class ExaminerServiceImpl implements ExaminerService {
 
 
     @Override
-    public Collection<Question> getQuestions(int amount) {
+    public Set<Question> getQuestions(int amount) {
+        if(amount>javaQuestionService.getAll().size()){throw new AmountOverSizeQuestionsException();}
         Set<Question> questionsSet = new HashSet<>();
         while (questionsSet.size()!=amount){
             questionsSet.add(this.javaQuestionService.getRandomQuestion());
