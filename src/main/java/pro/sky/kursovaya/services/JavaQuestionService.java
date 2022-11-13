@@ -66,6 +66,7 @@ public boolean checkInput(Question question) {
         return question;
     }
 
+
     @Override
     public Collection<Question> getAll() {
         return questions;
