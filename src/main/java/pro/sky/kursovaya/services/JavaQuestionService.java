@@ -46,10 +46,10 @@ public class JavaQuestionService implements QuestionService {
                     "1955 г.")
     ));
 
-public boolean checkInput(Question question) {
-    return !question.getQuestion().isBlank() && !question.getQuestion().isEmpty()
-            && !question.getAnswer().isBlank() && !question.getAnswer().isEmpty();
-}
+    public boolean checkInput(Question question) {
+        return !question.getQuestion().isBlank() && !question.getQuestion().isEmpty()
+                && !question.getAnswer().isBlank() && !question.getAnswer().isEmpty();
+    }
 
     @Override
     public Question add(Question question) {
@@ -74,7 +74,8 @@ public boolean checkInput(Question question) {
 
     @Override
     public Question getRandomQuestion() {
-    if(questions.isEmpty()){throw new QuestionIsNotFoundException();}
+        if(questions.isEmpty()){throw new QuestionIsNotFoundException();}
         return questions.stream().skip(new Random().nextInt(questions.size())).findFirst().orElse(null);
     }
 }
+

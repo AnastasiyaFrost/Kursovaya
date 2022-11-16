@@ -18,7 +18,7 @@ class JavaQuestionServiceTest {
     private final JavaQuestionService out = new JavaQuestionService();
     @BeforeEach
     public void beforeEach() {
-out.getAll().clear();
+        out.getAll().clear();
     }
 
     @Test
