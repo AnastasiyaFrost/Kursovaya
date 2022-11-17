@@ -38,3 +38,4 @@ public class Question {
                 ", ответ: " + answer+";";
     }
 }
+

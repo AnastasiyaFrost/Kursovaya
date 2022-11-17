@@ -19,7 +19,7 @@ public class JavaQuestionController {
     public Question addQuestion(@RequestBody Question question){
         return this.javaQuestionService.add(question);
     }
-@GetMapping
+    @GetMapping
     public Collection<Question> getQuestions(){
         return this.javaQuestionService.getAll();
     }
@@ -29,3 +29,4 @@ public class JavaQuestionController {
         return this.javaQuestionService.remove(question);
     }
 }
+

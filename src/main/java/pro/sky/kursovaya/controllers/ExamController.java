@@ -15,8 +15,9 @@ public class ExamController {
     public ExamController(ExaminerServiceImpl examinerServiceImpl) {
         this.examinerServiceImpl = examinerServiceImpl;
     }
-@GetMapping
+    @GetMapping
     public Collection<Question> getQuestions(@RequestParam int amount) {
         return this.examinerServiceImpl.getQuestions(amount);
     }
 }
+
